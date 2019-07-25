@@ -1,10 +1,14 @@
 <script>
 	import Square from './Square.svelte';
-	
-	export let level;
-	export let size;
+	import { choosed_count, current_level, win_condition } from './stores.js';
 
-	let squares = Array.from(Array(4), () => new Array(4).fill(''))
+	const default_square = {
+		blocked: false,
+		pressed: false,
+		moveable: true
+	}
+
+	$: squares = Array.from(Array($current_level.size), () => new Array($current_level.size).fill(default_square));	
 </script>
 
 <style>
@@ -14,13 +18,16 @@
 
 </style>
 
-<h1>Level {level}</h1>
+<h1>Level {$current_level.id}</h1>
 <div>
-	{#each state.squares as row_list, row}
-		{#each row_list as cell, col}
-			<Square {row_list} on:click={e => handleClick(row)}/>
+	{#each squares as row_list, row_pos}
+		{#each row_list as state, col_pos}
+			<Square {state} {row_pos} {col_pos}/>
 		{/each}
 		<br>
 	{/each}
 </div>
+
+
+
 
