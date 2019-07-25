@@ -1,44 +1,39 @@
 <script>
+	import { choosed_count, current_level, win_condition, current_index } from './stores.js';
 	import Board from './Board.svelte';
-	
-	const level = [
-        {
-            level: 1,
-            size: 4,
-            block: [[0,0], [3,0]]
-        },
-        {
-            level: 1,
-            size: 5,
-            block: [
-                [0,0],[3,0],[4,0],
-                [0,1],[2,1],
-                [4,2],
-                [1,3],[2,3],
-                [0,4],[3,4],[4,4]
-            ]
-        }
-    ]
+	import NextButton from './NextButton.svelte'
+
+	let game_active = false;
+	let game_finish = false;
 </script>
 
 <div class="game">
-	<div class="game-board">
+	{#if game_active}
+	<div>
 		<Board />
+		{#if $choosed_count == $win_condition}
+		<NextButton />
+		{/if}
 	</div>
-	<div class="game-info">
-		<div></div>
-		<ol></ol>
+	{:else}
+	<div>
+		<h1>Welcome to the game!</h1>
+		<button on:click={() => game_active = true}>Start Game</button>
 	</div>
+	{/if}
 </div>
 
-<style>
-	h1 {
-		color: purple;
-	}
+<h2>Debug Status</h2>
+<h3>
+Winning cond {$win_condition} Choosed count {$choosed_count}
+Index {$current_index}
+</h3>
 
+
+<style>
 	.game {
 		font: 14px "Century Gothic", Futura, sans-serif;
-		margin: 20px;
+		margin: auto;
 		display: flex;
 		flex-direction: row;
 	}
