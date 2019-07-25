@@ -1,6 +1,10 @@
 <script>
 	import { current_level } from './stores.js'
-	export let state;
+	let state = {
+		blocked: false,
+		pressed: false,
+		moveable: true
+	};
 	let active = false;
 
 	export let row_pos;
@@ -9,9 +13,7 @@
 
 	
 	current_level.subscribe(val => {
-		console.log(state.blocked)
 		if(isExist(val.blocks, str_pos)){
-			console.log("It's exist")
 			state.blocked = true;
 		}
 	})

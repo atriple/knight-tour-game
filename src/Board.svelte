@@ -2,13 +2,7 @@
 	import Square from './Square.svelte';
 	import { choosed_count, current_level, win_condition } from './stores.js';
 
-	const default_square = {
-		blocked: false,
-		pressed: false,
-		moveable: true
-	}
-
-	$: squares = Array.from(Array($current_level.size), () => new Array($current_level.size).fill(default_square));	
+	$: squares = Array.from(Array($current_level.size), () => new Array($current_level.size));
 </script>
 
 <style>
@@ -22,7 +16,7 @@
 <div>
 	{#each squares as row_list, row_pos}
 		{#each row_list as state, col_pos}
-			<Square {state} {row_pos} {col_pos}/>
+			<Square {row_pos} {col_pos}/>
 		{/each}
 		<br>
 	{/each}
