@@ -1,10 +1,39 @@
 <script>
-	export let value = '';
+	import { current_level } from './stores.js'
+	export let state;
 	let active = false;
+
+	export let row_pos;
+	export let col_pos;
+	let str_pos = row_pos.toString() + ',' + col_pos.toString();
+
+	
+	current_level.subscribe(val => {
+		console.log(state.blocked)
+		if(isExist(val.blocks, str_pos)){
+			console.log("It's exist")
+			state.blocked = true;
+		}
+	})
+	
+
+	function isExist(list, val){
+		for(let item of list){
+			if(item === val) return true;
+		}
+		return false
+	}
+
+	function choose(){
+		//if state is blocked, make sure they don't react to anything
+		//if state is pressed, make sure they don't react to anything
+		//if state is available, you can process to get to pressed status, also make sure count the variables
+		//if choosed_count reach the choosed_target, declare win(global var from stores.js)
+
+	}
 </script>
 
-<button on:click class:active on:click={() =>  active = true}>
-  {value}
+<button class:pressed={state.pressed} class:blocked={state.blocked} on:click={() =>  active = true}>
 </button>
 
 <style>
@@ -27,7 +56,11 @@
 		outline: none; 
 	}
 
-	.active {
+	.pressed {
 		background-color: #ff3e00;
+	}
+
+	.blocked {
+		background-color: gray;
 	}
 </style>
