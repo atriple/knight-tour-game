@@ -11,7 +11,7 @@ export const level_list = writable([
     {
         id: 1,
         size: 4,
-        blocks: ["1,0", "3,0"]
+        blocks: ["0,0", "3,0"]
     },
     {
         id: 2,

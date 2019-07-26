@@ -1,5 +1,5 @@
 <script>
-	import { current_level } from './stores.js'
+	import { current_level, choosed_count } from './stores.js'
 	let state = {
 		blocked: false,
 		pressed: false,
@@ -18,7 +18,6 @@
 		}
 	})
 	
-
 	function isExist(list, val){
 		for(let item of list){
 			if(item === val) return true;
@@ -27,15 +26,19 @@
 	}
 
 	function choose(){
+		if(state.blocked == false && state.pressed == false && state.moveable == true){
+			console.log("Pressed");
+			state.pressed = true;
+			choosed_count.update(n => n + 1)
+		}
 		//if state is blocked, make sure they don't react to anything
 		//if state is pressed, make sure they don't react to anything
 		//if state is available, you can process to get to pressed status, also make sure count the variables
 		//if choosed_count reach the choosed_target, declare win(global var from stores.js)
-
 	}
 </script>
 
-<button class:pressed={state.pressed} class:blocked={state.blocked} on:click={() =>  active = true}>
+<button class:pressed={state.pressed} class:blocked={state.blocked} on:click={choose}>
 </button>
 
 <style>
