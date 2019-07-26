@@ -7,8 +7,9 @@
         current_index.update(n => n + 1);
         current_index.subscribe(val => index = val);
         level_list.subscribe(val => current_level.set(val[index]));
-        current_level.subscribe(val => win_condition.set((val.size ** 2) - val.block.length));
-        choosed_count.set(20);}
+        current_level.subscribe(val => win_condition.set((val.size ** 2) - val.blocks.length));
+        choosed_count.set(0);
+        console.log("Complete");}
 
 </script>
 
