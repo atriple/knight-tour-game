@@ -1,17 +1,11 @@
 <script>
 	import { current_level, choosed_count } from './stores.js'
-	let state = {
-		blocked: false,
-		pressed: false,
-		moveable: true
-	};
-	let active = false;
 
+	export let state;
 	export let row_pos;
 	export let col_pos;
-	let str_pos = row_pos.toString() + ',' + col_pos.toString();
 
-	
+	/*
 	current_level.subscribe(val => {
 		if(isExist(val.blocks, str_pos)){
 			state.blocked = true;
@@ -24,21 +18,45 @@
 		}
 		return false
 	}
+	*/
+	
 
 	function choose(){
-		if(state.blocked == false && state.pressed == false && state.moveable == true){
+		if(state == 0){
 			console.log("Pressed");
-			state.pressed = true;
-			choosed_count.update(n => n + 1)
+			$current_level.grid[row_pos][col_pos] = 2;
+			enableKnightMove(row_pos, col_pos);
+			choosed_count.update(n => n + 1);
 		}
 		//if state is blocked, make sure they don't react to anything
 		//if state is pressed, make sure they don't react to anything
 		//if state is available, you can process to get to pressed status, also make sure count the variables
 		//if choosed_count reach the choosed_target, declare win(global var from stores.js)
 	}
+
+	function enableKnightMove(row, col){
+		var modifiers = [1, 2, -1, -2];
+		for (var i in modifiers){
+			for (var j in modifiers){
+				if (modifiers[j] == modifiers[i]) continue;
+				if (modifiers[j] == -modifiers[i]) continue;
+				var r = Number(row)+Number(modifiers[i]);
+				var c = Number(col)+Number(modifiers[j]);
+
+				if (r >= 0 && c >= 0 && r < $current_level.size && c < $current_level.size){
+					$current_level.grid[r][c] = 3;
+				}			
+			}		
+		}	
+	}
+
+	function whitenMove(){
+		for(let )
+	}
+	
 </script>
 
-<button class:pressed={state.pressed} class:blocked={state.blocked} on:click={choose}>
+<button class:pressed={state == 2} class:blocked={state == 1} class:pressable={state == 3} on:click={choose}>
 </button>
 
 <style>
@@ -67,5 +85,9 @@
 
 	.blocked {
 		background-color: gray;
+	}
+
+	.pressable{
+		background-color: lightgreen;
 	}
 </style>
