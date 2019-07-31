@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 
 /*
 choosed_count : Count how many cell aleady choosed. This determine your win
@@ -46,15 +46,26 @@ export const level_list = writable([
     }
 ])
 
+export const initiated = writable(false);
 export const current_index = writable(0);
 
 export const current_level = writable();
-level_list.subscribe(val => current_level.set(val[0]))
+level_list.subscribe(val => current_level.set(val[0]));
 
 export const choosed_count = writable(0);
-
 export const win_condition = writable();
-current_level.subscribe(val => win_condition.set((val.size ** 2) - val.blocks))
+
+current_level.subscribe(val => {
+    win_condition.set((val.size ** 2) - val.blocks)
+})
+
+
+var copyArray = [];
+var state = get(current_level)
+for (var i = 0; i < state.grid.length; i++) copyArray[i] = state.grid[i].slice();
+
+export const initial_current_grid_state = writable(copyArray);
+
 
 //You can do export function too and then use the function using import, here's the example https://svelte.dev/examples#ondestroy
 /*
