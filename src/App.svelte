@@ -19,7 +19,7 @@
 	{:else}
 	<div>
 		<Board />
-		<Reset />
+		<Reset />	
 		{#if $choosed_count == $win_condition + 1 && $current_index < $level_list.length - 1}
 		<NextButton />
 		{/if}
@@ -30,11 +30,12 @@
 	{/if}
 </div>
 
-<!-- <h2>Debug Status</h2>
+
+<h2>Debug Status</h2>
 <h3>
 Winning cond {$win_condition} Choosed count {$choosed_count}
 Index {$current_index}
-</h3> -->
+</h3>
 
 
 <style>
