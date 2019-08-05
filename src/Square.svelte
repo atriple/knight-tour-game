@@ -1,5 +1,5 @@
 <script>
-	import { initiated, current_level, choosed_count, win_condition } from './stores.js'
+	import { initiated, current_level, choosed_count, win_condition, active_grid } from './stores.js';
 
 	export let state;
 	export let row_pos;
@@ -23,7 +23,7 @@
 	function choose(){
 		if(!$initiated && state == 0){
 			console.log("Initial Button Pressed");
-			$current_level.grid[row_pos][col_pos] = 4;
+			$active_grid[row_pos][col_pos] = 4;
 			enableKnightMove(row_pos, col_pos);	
 			choosed_count.update(n => n + 1);
 			$initiated = true;
@@ -31,7 +31,7 @@
 
 		if(state == 3){
 			console.log("Moveable button pressed");
-			$current_level.grid[row_pos][col_pos] = 2;
+			$active_grid[row_pos][col_pos] = 2;
 			whitenMove();
 			enableKnightMove(row_pos, col_pos);
 			choosed_count.update(n => n + 1);
@@ -40,7 +40,7 @@
 		if(state == 5){
 			console.log("Win Achieved!");
 			whitenMove();
-			$current_level.grid[row_pos][col_pos] = 2;
+			$active_grid[row_pos][col_pos] = 2;
 			choosed_count.update(n => n + 1);
 		}
 	}
@@ -58,11 +58,11 @@
 				// console.log(r);
 				// console.log(c);
 				if (r >= 0 && c >= 0 && r < $current_level.size && c < $current_level.size){
-					if($current_level.grid[r][c] == 0){
-						$current_level.grid[r][c] = 3;
+					if($active_grid[r][c] == 0){
+						$active_grid[r][c] = 3;
 					}
-					if($choosed_count == $win_condition - 1 && $current_level.grid[r][c] == 4){
-						$current_level.grid[r][c] = 5;
+					if($choosed_count == $win_condition - 1 && $active_grid[r][c] == 4){
+						$active_grid[r][c] = 5;
 					}
 				}			
 			}		
@@ -70,9 +70,9 @@
 	}
 
 	function whitenMove(){
-		for(let i in $current_level.grid){
-			 for(let j in $current_level.grid[i]){
-				if($current_level.grid[i][j] == 3) $current_level.grid[i][j] = 0;
+		for(let i in $active_grid){
+			 for(let j in $active_grid[i]){
+				if($active_grid[i][j] == 3) $active_grid[i][j] = 0;
 			}
 		}
 	}

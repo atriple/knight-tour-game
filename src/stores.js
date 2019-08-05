@@ -1,6 +1,7 @@
 import { writable, get } from 'svelte/store';
 
 /*
+level_list : constant level information that you can 
 choosed_count : Count how many cell aleady choosed. This determine your win
 current_index : Track what index to choose the level object, start from 0
 current_level : Store level object
@@ -50,22 +51,33 @@ export const initiated = writable(false);
 export const current_index = writable(0);
 
 export const current_level = writable();
-level_list.subscribe(val => current_level.set(val[0]));
 
 export const choosed_count = writable(0);
 export const win_condition = writable();
 
+export function deepCopy(arr){
+    /*
+    * Get deep copy value from level_list, based on curent index
+    */
+    let copyArray = [];
+
+    //Do deep copy loop
+    for (var i = 0; i < arr.length; i++) copyArray[i] = arr[i].slice();
+
+    return copyArray.slice();
+}
+
+//Initialize current_level from level_list
+current_level.set(get(level_list)[get(current_index)]);
+
+// Fresh copy for reset
+export const active_grid = writable(deepCopy(get(current_level).grid)); 
+
+//Assign subscribtion to current_level, everytime it is updated, other variables will be updated too.
 current_level.subscribe(val => {
     win_condition.set((val.size ** 2) - val.blocks)
+    active_grid.set(deepCopy(get(current_level).grid))
 })
-
-
-var copyArray = [];
-var state = get(current_level)
-for (var i = 0; i < state.grid.length; i++) copyArray[i] = state.grid[i].slice();
-
-export const initial_current_grid_state = writable(copyArray);
-
 
 //You can do export function too and then use the function using import, here's the example https://svelte.dev/examples#ondestroy
 /*
