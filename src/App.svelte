@@ -1,56 +1,102 @@
 <script>
 	import { choosed_count, current_level, win_condition, current_index, level_list} from './stores.js';
 	import Board from './Board.svelte';
-	import NextButton from './NextButton.svelte'
-	import Reset from './Reset.svelte'
+	import NextButton from './NextButton.svelte';
+	import Reset from './Reset.svelte';
+	import ProgressBar from './ProgressBar.svelte';
 
 	let game_menu = true;
 	let game_finish = false;
 </script>
 
-<div class="game">
 	{#if game_menu}
-	<div>
-		<h1>Welcome to the game!</h1>
-		<button on:click={() => game_menu = false}>Start Game</button>
-	</div>
-	{:else if game_finish}
-		<h1>Finished the Game!</h1>
-	{:else}
-	<div>
-		<Board />
-		<Reset />	
-		{#if $choosed_count == $win_condition + 1 && $current_index < $level_list.length - 1}
-		<NextButton />
-		{/if}
-		{#if $choosed_count == $win_condition + 1 && $current_index == $level_list.length - 1}
-		<button on:click={() => game_finish = true}>Finish</button>
-		{/if}
-	</div>	
+		<div class="menu">
+			<h1>GAME TITLE</h1>
+			<button on:click={() => game_menu = false}>START</button>
+		</div>
+	{/if}
+
+
+<div>
+	{#if game_finish}
+		<h1>Finish!</h1>
+	{:else if !game_menu}
+			<header>
+				<Reset /> 
+				<h2 class="level">LEVEL {$current_level.id}</h2>	
+				<div class="header-gap"></div>	
+			</header>
+		<hr> 
+		
+		<div class="game">
+			<Board />
+			<ProgressBar />
+		</div>
+		
+		<div class="game-button">
+			{#if $choosed_count == $win_condition + 1 && $current_index < $level_list.length - 1}
+			<NextButton />
+			{:else}
+			<button class="btn-disable">Next Level</button>
+			{/if}
+			{#if $choosed_count == $win_condition + 1 && $current_index == $level_list.length - 1}
+			<button on:click={() => game_finish = true}>Finish</button>
+			{/if}
+		</div>	
 	{/if}
 </div>
 
-
-<h2>Debug Status</h2>
-<h3>
-Winning cond {$win_condition} Choosed count {$choosed_count}
-Index {$current_index}
-</h3>
-
+<footer>Created by atriple with QM team.</footer>
 
 <style>
-	.game {
-		font: 14px "Century Gothic", Futura, sans-serif;
-		margin: auto;
+	header{
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.level{
+		text-align: center;
+		order: 2;
+		width: 50%;
+		margin: auto;
 	}
 
-	.game-info {
-		margin-left: 20px;
+	.header-gap{
+		order: 3;
+		width: 25%;
+		margin-right:0px;
 	}
 
-	ol {
-		padding-left: 30px;
+	.game {
+		margin: 50px auto;
+		text-align: center;
+		width: 50%;
+	}
+
+	.game-button {
+		text-align: right;
+		margin: auto;
+		margin-right: 25px;
+	}
+
+	footer{
+		position: absolute;
+		bottom: 0;
+		width: auto;
+		padding-bottom: 10px;
+		color: #C4A5B5;
+	}
+
+	.btn-disable{
+		color: gray;
+	}
+
+	.menu{
+		padding-top: 2%;
+		margin: auto;
+  		width: 50%;
+		text-align: center;
 	}
 </style>
