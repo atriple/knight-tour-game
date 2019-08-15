@@ -7,22 +7,23 @@
 </script>
 
 <style>
-	h1 {
-		text-align: center;
+	.board {
+		display: grid;
+		grid-template-columns: auto;
+		justify-content: center;
 	}
-
 </style>
 
-<h1>Level {$current_level.id}</h1>
-<div>
+<div class="board" style={"grid-template-columns: "+ "auto ".repeat($current_level.size) + ";"}>
 	{#each $active_grid as row_list, row_pos}
 		{#each row_list as state, col_pos}
+			<div>
 			<Square {state} {row_pos} {col_pos}/>
-		{/each}
-		<br>
+			</div>	
+		{/each} 
+
 	{/each}
 </div>
-
 
 
 

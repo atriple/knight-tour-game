@@ -5,21 +5,6 @@
 	export let row_pos;
 	export let col_pos;
 
-	/*
-	current_level.subscribe(val => {
-		if(isExist(val.blocks, str_pos)){
-			state.blocked = true;
-		}
-	})
-	
-	function isExist(list, val){
-		for(let item of list){
-			if(item === val) return true;
-		}
-		return false
-	}
-	*/
-
 	function choose(){
 		if(!$initiated && state == 0){
 			console.log("Initial Button Pressed");
@@ -84,26 +69,21 @@
 
 <style>
 	button {
-		background: #fff;
-		border: 1px solid #999;
-		float: left;
-		font-size: 24px;
-		font-weight: bold;
-		line-height: 34px;
-		height: 34px;
-		margin-right: -1px;
-		margin-top: -1px;
-		margin-bottom: -1px;
-		padding: 0;
-		text-align: center;
-		width: 34px;
+		background: none;
+		border: 1px solid #868790;
+		line-height: 50px;
+		height: 50px;
+		margin-right: 10px; 	
+		margin-bottom: 10px;
+		width: 50px;
 	}
-	button:focus { 
-		outline: none; 
+
+	button:focus{
+		outline: none;
 	}
 
 	.pressed {
-		background-color: #ff3e00;
+		background-color: #F1F2EF;
 	}
 
 	.blocked {
@@ -111,7 +91,7 @@
 	}
 
 	.pressable{
-		background-color: lightgreen;
+		border: 2px solid #F1F2EF;
 	}
 
 	.initial{
