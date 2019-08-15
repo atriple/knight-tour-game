@@ -10,6 +10,24 @@
 
 </script>
 
+<style>
+    button{
+        background: palevioletred;
+        color: white;
+        border: none;
+        align-self: center;
+        text-align: center;
+        width: 5%;
+        min-width: 75px;
+        margin-left: 0px;
+        margin-top: 0px;
+        margin-bottom:0px;
+        margin-right: 20%;
+    }
+
+    button:hover{background-color: pink;}
+</style>
+
 <button on:click={reset}>
-Reset
+    Reset
 </button>
