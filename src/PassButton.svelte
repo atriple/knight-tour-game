@@ -11,6 +11,6 @@
 
 </script>
 
-<button on:click={nextLevel}>
-Next Level
+<button>
+Pass
 </button>
