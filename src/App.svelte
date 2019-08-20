@@ -1,21 +1,30 @@
 <script>
-	import { choosed_count, current_level, win_condition, current_index, level_list} from './stores.js';
+	import { 
+		choosed_count, 
+		current_level, 
+		win_condition, 
+		current_index, 
+		level_list,
+		loadLastSession
+		} from './stores.js';
 	import Board from './Board.svelte';
 	import NextButton from './NextButton.svelte';
 	import Reset from './Reset.svelte';
+	import Restart from './Restart.svelte';
 	import ProgressBar from './ProgressBar.svelte';
+
+	loadLastSession();
 
 	let game_menu = true;
 	let game_finish = false;
 </script>
 
-	{#if game_menu}
-		<div class="menu">
-			<h1>GAME TITLE</h1>
-			<button on:click={() => game_menu = false}>START</button>
-		</div>
-	{/if}
-
+{#if game_menu}
+	<div class="menu">
+		<h1>GAME TITLE</h1>
+		<button on:click={() => game_menu = false}>START</button>
+	</div>
+{/if}
 
 <div>
 	{#if game_finish}
@@ -34,6 +43,8 @@
 		</div>
 		
 		<div class="game-button">
+		<Restart />
+		<NextButton />
 			{#if $choosed_count == $win_condition + 1 && $current_index < $level_list.length - 1}
 			<NextButton />
 			{:else}
@@ -46,7 +57,7 @@
 	{/if}
 </div>
 
-<footer>Created by atriple with QM team.</footer>
+<footer>Created by atriple with QM team. For Demo purpose only.</footer>
 
 <style>
 	header{
@@ -79,14 +90,6 @@
 		text-align: right;
 		margin: auto;
 		margin-right: 25px;
-	}
-
-	footer{
-		position: absolute;
-		bottom: 0;
-		width: auto;
-		padding-bottom: 10px;
-		color: #C4A5B5;
 	}
 
 	.btn-disable{
