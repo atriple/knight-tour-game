@@ -1,4 +1,5 @@
 import { writable, get } from 'svelte/store';
+import { deepCopy } from './utils';
 
 /*
 level_list : constant level information that you can 
@@ -153,18 +154,6 @@ export const current_level = writable();
 export const choosed_count = writable(0);
 export const win_condition = writable();
 
-export function deepCopy(arr){
-    /*
-    * Get deep copy value from level_list, based on curent index
-    */
-    let copyArray = [];
-
-    //Do deep copy loop
-    for (var i = 0; i < arr.length; i++) copyArray[i] = arr[i].slice();
-
-    return copyArray.slice();
-}
-
 //Initialize current_level from level_list
 current_level.set(get(level_list)[get(current_index)]);
 
@@ -177,19 +166,20 @@ current_level.subscribe(val => {
     active_grid.set(deepCopy(get(current_level).grid))
 })
 
-//You can do export function too and then use the function using import, here's the example https://svelte.dev/examples#ondestroy
-/*
-EXAMPLES
-function createCount() {
-	const { subscribe, set, update } = writable(0);
-
-	return {
-		subscribe,
-		increment: () => update(n => n + 1),
-		decrement: () => update(n => n - 1),
-		reset: () => set(0)
-	};
+export function loadLastSession(){
+    /*
+    Get index value from local storage
+    */
+    let session = localStorage.getItem('level_index');
+    if(session){
+        current_level.set(get(level_list)[session]);
+    }
 }
 
-export const count = createCount();
-*/
+export function resetSession(){
+    localStorage.removeItem('level_index');
+    current_index.set(0);
+    current_level.set(get(level_list)[get(current_index)]);
+    initiated.set(false);
+    choosed_count.set(0);
+}
