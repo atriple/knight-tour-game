@@ -1,9 +1,6 @@
 <script>
 	import Square from './Square.svelte';
-	import { choosed_count, current_level, win_condition, active_grid } from './stores.js';
-
-
-	//$: squares = Array.from(Array($current_level.size), () => new Array($current_level.size));
+	import { current_level, active_grid } from './stores.js';
 </script>
 
 <style>
