@@ -7,7 +7,7 @@
 
 	function choose(){
 		if(!$initiated && state == 0){
-			console.log("Initial Button Pressed");
+			//console.log("Initial Button Pressed");
 			$active_grid[row_pos][col_pos] = 4;
 			enableKnightMove(row_pos, col_pos);	
 			choosed_count.update(n => n + 1);
@@ -15,7 +15,7 @@
 		}
 
 		if(state == 3){
-			console.log("Moveable button pressed");
+			//console.log("Moveable button pressed");
 			$active_grid[row_pos][col_pos] = 2;
 			whitenMove();
 			enableKnightMove(row_pos, col_pos);
@@ -23,7 +23,7 @@
 		}
 
 		if(state == 5){
-			console.log("Win Achieved!");
+			//console.log("Win Achieved!");
 			whitenMove();
 			$active_grid[row_pos][col_pos] = 2;
 			choosed_count.update(n => n + 1);
@@ -64,7 +64,13 @@
 	
 </script>
 
-<button class:blocked={state == 1} class:pressed={state == 2} class:pressable={state == 3} class:initial={state == 4} class:win={state == 5} on:click={choose}>
+<button 
+	class:blocked={state == 1} 
+	class:pressed={state == 2} 
+	class:pressable={state == 3} 
+	class:initial={state == 4} 
+	class:win={state == 5} 
+	on:click={choose}>
 </button>
 
 <style>
