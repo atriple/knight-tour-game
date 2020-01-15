@@ -1,5 +1,4 @@
-draft/
+/node_modules/
+/public/build/
 
 .DS_Store
-node_modules
-public/bundle.*
