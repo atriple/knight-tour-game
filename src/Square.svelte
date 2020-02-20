@@ -1,9 +1,11 @@
 <script>
-	import { initiated, current_level, choosed_count, win_condition, active_grid } from './stores.js';
-
+	import { initiated, current_level, choosed_count, win_condition, active_grid, knight_row_pos, knight_col_pos } from './stores.js';
+	
 	export let state;
 	export let row_pos;
 	export let col_pos;
+
+	console.log(typeof row_pos);
 
 	function choose(){
 		if(!$initiated && state == 0){
@@ -12,6 +14,7 @@
 			enableKnightMove(row_pos, col_pos);	
 			choosed_count.update(n => n + 1);
 			$initiated = true;
+			updateKnightPos();
 		}
 
 		if(state == 3){
@@ -20,10 +23,13 @@
 			whitenMove();
 			enableKnightMove(row_pos, col_pos);
 			choosed_count.update(n => n + 1);
+			updateKnightPos();
 		}
 
 		if(state == 5){
 			//console.log("Win Achieved!");
+			$knight_col_pos = null;
+			$knight_row_pos = null;
 			whitenMove();
 			$active_grid[row_pos][col_pos] = 2;
 			choosed_count.update(n => n + 1);
@@ -61,6 +67,11 @@
 			}
 		}
 	}
+
+	function updateKnightPos(){
+		$knight_col_pos = col_pos;
+		$knight_row_pos = row_pos;
+	}
 	
 </script>
 
@@ -70,18 +81,21 @@
 	class:pressable={state == 3} 
 	class:initial={state == 4} 
 	class:win={state == 5} 
+	class:victory={$choosed_count == $win_condition + 1}
 	on:click={choose}>
+	{#if row_pos == $knight_row_pos && col_pos == $knight_col_pos}<img src="./chess-knight-solid.svg" class="knight"/> {/if}
 </button>
 
 <style>
 	button {
 		background: none;
 		border: 1px solid #868790;
-		line-height: 50px;
-		height: 50px;
+		line-height: 100px;
+		height: 100px;
 		margin-right: 10px; 	
 		margin-bottom: 10px;
-		width: 50px;
+		width: 100px;
+		text-align: center;
 	}
 
 	button:focus{
@@ -90,10 +104,12 @@
 
 	.pressed {
 		background-color: #F1F2EF;
+		border: none;
 	}
 
 	.blocked {
 		background-color: gray;
+		border: none;
 	}
 
 	.pressable{
@@ -101,10 +117,20 @@
 	}
 
 	.initial{
-		background-color:lightblue;
+		border: 2px solid goldenrod;
 	}
 	
 	.win{
-		background-color:goldenrod;
+		border: 2px solid limegreen;
+	}
+
+	.victory{
+		background-color: limegreen;
+		border: none;
+	}
+
+	.knight{
+		width: 50px;
+		padding-top: 5px;
 	}
 </style>

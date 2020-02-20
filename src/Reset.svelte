@@ -1,5 +1,5 @@
 <script>
-    import { current_level, active_grid, initiated, choosed_count } from './stores.js';
+    import { current_level, active_grid, initiated, choosed_count, knight_row_pos, knight_col_pos } from './stores.js';
     import { deepCopy } from './utils.js';
 
     function reset(){
@@ -7,6 +7,8 @@
         $active_grid = deepCopy($current_level.grid);
         initiated.set(false);
         choosed_count.set(0);
+        $knight_row_pos = null;
+        $knight_col_pos = null;
     }
 
 </script>
@@ -26,7 +28,15 @@
         margin-right: 20%;
     }
 
-    button:hover{background-color: pink;}
+    button:hover{
+        background-color: pink;
+    }
+
+    button:active {
+	    position: relative;
+	    top: 1px;
+    }
+
 </style>
 
 <button on:click={reset}>

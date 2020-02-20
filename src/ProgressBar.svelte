@@ -21,7 +21,7 @@
 
     progress[value]{
         border-radius: 10px;
-        
+        width: 500px;
     }
 
 	progress[value]::-webkit-progress-bar {
@@ -31,14 +31,13 @@
     }
 
     progress[value]::-webkit-progress-value{
-        background-color: goldenrod;
+        background-color: limegreen;
         border-radius: 10px;
     }
-
     
 </style>
 
 <div class="bar">
     <progress value={$progress}></progress>
-    {$choosed_count} / {$win_condition}(+1)
+    {$choosed_count} / {$win_condition + 1}
 </div>
