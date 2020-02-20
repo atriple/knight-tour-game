@@ -1,19 +1,26 @@
 {
   "name": "knight-tour-game",
   "version": "2.0.0",
+  "description": "Game with Knight Tour concepts",
+  "license": "MIT",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^11.0.0",
-    "@rollup/plugin-node-resolve": "^6.0.0",
-    "rollup": "^1.20.0",
+    "@fullhuman/postcss-purgecss": "^2.0.6",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "postcss": "^7.0.27",
+    "postcss-load-config": "^2.1.0",
+    "rollup": "^1.31.1",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^5.1.2",
-    "svelte": "^3.0.0"
+    "svelte": "^3.18.2",
+    "svelte-preprocess": "^3.4.0",
+    "tailwindcss": "^1.2.0"
   },
   "dependencies": {
     "sirv-cli": "^0.4.5"
