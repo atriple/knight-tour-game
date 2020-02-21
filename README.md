@@ -1,5 +1,6 @@
 # Knight Tour Game 
 
+
 ## Built With
 - Svelte
 
@@ -8,7 +9,6 @@
 Install the dependencies...
 
 ```bash
-cd svelte-app
 npm install
 ```
 
@@ -24,4 +24,4 @@ Navigate to [localhost:5000](http://localhost:5000). You should see your app run
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## Credits
-This project initially used for OMITS 2019 game, so props to QM-Team who make the level design.
+This project initially used for OMITS 2019 game, so props to QM-Team who make the game and level design.
