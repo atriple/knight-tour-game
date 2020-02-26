@@ -12,24 +12,15 @@
   import Board from "./Board.svelte";
   import Reset from "./Reset.svelte";
   import ProgressBar from "./ProgressBar.svelte";
+
+  let menuState = "begin";
+
+  const playGame = () => {
+    menuState = "game";
+  };
 </script>
 
 <style>
-  header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    @apply bg-black text-white;
-  }
-
-  .level {
-    text-align: center;
-    order: 2;
-    width: 50%;
-    margin: auto;
-  }
-
   .header-gap {
     order: 3;
     width: 25%;
@@ -43,17 +34,27 @@
   }
 </style>
 
-<div>
-  <header>
+{#if menuState == 'begin'}
+  <h1>Knight Adventure</h1>
+  <button on:click={playGame}>New Game</button>
+  <button>Continue</button>
+{/if}
+
+{#if menuState == 'game'}
+  <header class="flex flex-row justify-between">
     <Reset />
     <h2 class="level">Knight Adventure</h2>
-    <div class="header-gap" />
+    <p>How to play?</p>
   </header>
-  <hr />
+
   <div class="game">
     <Board />
     <ProgressBar />
   </div>
+{/if}
+
+<div>
+
   {#if $choosed_count == $win_condition + 1}
     <div align="center">
       <h1>YOU WIN! 🏆</h1>
