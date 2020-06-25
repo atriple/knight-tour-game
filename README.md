@@ -1,5 +1,6 @@
 # Knight Tour Game 
 
+> "If I were not React, then I should wish to be Svelte." -- React The Great 
 
 ## Built With
 - Svelte
