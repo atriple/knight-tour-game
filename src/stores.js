@@ -1,4 +1,4 @@
-import { getTotalLevel } from "./data_config";
+import { getTotalLevel } from "./data";
 import { writable } from "svelte/store";
 
 const STATE = {
