@@ -1,6 +1,20 @@
+// Place your level configuration to LEVEL_LIST
+// also serves as utillity function to get necessary information of the level.
+
+/**
+ * Value definition of the grid
+ * 0 - Empty
+ * 1 - Blocked
+ * 2 - Visited
+ */
+const GRID_STATE = {
+  EMPTY: 0,
+  BLOCKED: 1,
+  VISITED: 2,
+};
+
 /**
  * Add your Level data to the `LEVEL_LIST`
- * This file also serves as utillity function to get necessary information of the level.
  */
 const LEVEL_LIST = [
   [
@@ -88,7 +102,7 @@ const LEVEL_LIST = [
  * Efficient map-reduce function to get certain number in matrix
  */
 const countNumberInMatrix = (matrix, n) => {
-  matrix
+  return matrix
     .map((row) =>
       row.reduce((total, current) => (current == n ? total + 1 : total), 0)
     )
@@ -101,7 +115,7 @@ const getLevelData = (index) => {
 };
 
 const getTotalLevel = () => {
-  LEVEL_LIST.length;
+  return LEVEL_LIST.length;
 };
 
-export { getLevelData, getTotalLevel };
+export { getLevelData, getTotalLevel, GRID_STATE };
