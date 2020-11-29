@@ -5,7 +5,7 @@
   import Start from "./component/Start.svelte";
   import { STATE, currentState } from "./stores";
 
-  export const debug = false;
+  export let debug = false;
 </script>
 
 <style>
