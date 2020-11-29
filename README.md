@@ -2,7 +2,7 @@
 
 > "If I were not React, then I should wish to be Svelte." -- React The Great
 
-Updated for practice. Quite a nice way to practice front end, ui, debugging, refactoring, logics and maths.
+Updated for practice. Quite a nice way to practice front end, ui, debugging, refactoring, logics and such.
 
 ## Built With
 
