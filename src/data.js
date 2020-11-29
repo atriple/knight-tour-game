@@ -115,7 +115,10 @@ const countNumberInMatrix = (matrix, n) => {
 
 const getLevelData = (index) => {
   const numberOfZero = countNumberInMatrix(LEVEL_LIST[index], 0);
-  return { grid: LEVEL_LIST[index], goal: numberOfZero };
+  return {
+    grid: JSON.parse(JSON.stringify(LEVEL_LIST[index])),
+    goal: numberOfZero,
+  };
 };
 
 const getTotalLevel = () => {
