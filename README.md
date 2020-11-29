@@ -4,7 +4,7 @@
 
 Updated for practice. Quite a nice way to practice front end, ui, debugging, refactoring, logics and such.
 
-[Try the game](knight-adventure.surge.sh/)
+[Try the game](http://knight-adventure.surge.sh/)
 
 ## Built With
 
