@@ -1,43 +1,17 @@
 <script>
-  import Board from "./component/Board.svelte";
+  import Game from "./component/Game.svelte";
+  import HowToPlay from "./component/HowToPlay.svelte";
+  import SelectLevel from "./component/SelectLevel.svelte";
+  import Start from "./component/Start.svelte";
+  import { STATE, currentState } from "./stores";
 
-  const STATE = {
-    BEGIN: "begin",
-    GAME: "game",
-    CHOOSE_LEVEL: "choose level",
-    HOW_TO_PLAY: "how to play",
-  };
-
-  let current_state = STATE.BEGIN;
-  let current_level = {
-    id: 1,
-    grid: [
-      [1, 0, 0, 1],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-    ],
-  };
-
-  function newGame() {
-    //Reset local storage
-    //Start from first level
-  }
-
-  function nextLevel() {
-    current_level.id++;
-  }
-
-  const changeState = (state) => {
-    current_state = state;
-  };
+  export const debug = false;
 </script>
 
 <style>
   main {
     text-align: center;
     padding: 1em;
-    max-width: 240px;
     margin: 0 auto;
   }
 
@@ -47,10 +21,10 @@
     font-size: 4em;
     font-weight: 100;
   }
-
-  p:hover {
-    color: var(--blue);
-    cursor: pointer;
+  p {
+    max-width: auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   @media (min-width: 640px) {
@@ -62,17 +36,14 @@
 
 <main>
   <h1>Knight Adventure</h1>
-  {#if current_state === STATE.BEGIN}
-    <p on:click={() => changeState(STATE.GAME)}>New Game</p>
-    <p>Continue</p>
-    <p>Choose Level</p>
-    <p on:click={() => changeState(STATE.HOW_TO_PLAY)}>How To Play</p>
-  {:else if current_state === STATE.GAME}
-    <p>Level {current_level.id}</p>
-    <Board grid={current_level.grid} />
-    <button on:click={nextLevel}>Next Level</button>
-  {:else if current_state === STATE.HOW_TO_PLAY}
-    <p>How to play the game</p>
+  {#if $currentState === STATE.BEGIN}
+    <Start />
+  {:else if $currentState === STATE.GAME}
+    <Game {debug} />
+  {:else if $currentState === STATE.CHOOSE_LEVEL}
+    <SelectLevel />
+  {:else if $currentState === STATE.HOW_TO_PLAY}
+    <HowToPlay />
   {/if}
 
   <p>
