@@ -3,14 +3,18 @@
 
 /**
  * Value definition of the grid
- * 0 - Empty
- * 1 - Blocked
- * 2 - Visited
+ * * 0 - Empty/Unvisited
+ * * 1 - Blocked
+ * * 2 - Visited
+ * * 3 - Destination
+ * * 4 - Current Knight Position
  */
 const GRID_STATE = {
   EMPTY: 0,
   BLOCKED: 1,
   VISITED: 2,
+  DESTINATION: 3,
+  CURRENT: 4,
 };
 
 /**
