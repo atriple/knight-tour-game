@@ -1,13 +1,16 @@
 <script>
   import Board from "./Board.svelte";
   import { getLevelData, getTotalLevel, GRID_STATE } from "../data";
-  import { STATE, currentState, currentLevel } from "../stores";
+  import { currentLevel, finishedLevel } from "../stores";
   import ButtonToMenu from "./button/ButtonToMenu.svelte";
 
   export const debug = false;
 
   $: data = getLevelData($currentLevel);
-  $: console.log(data.grid);
+  $: isFinished = visitedCount === data.goal;
+  $: if (isFinished) {
+    $finishedLevel[$currentLevel] = 1;
+  }
   /**
    * Allowed knight moves, consist of list of pair value [x, y]
    */
@@ -68,19 +71,21 @@
     localStorage.setItem("currentLevel", $currentLevel);
   }
 
+  function resetLevel() {
+    visitedCount = 0;
+    data = getLevelData($currentLevel);
+  }
+
   function updateGridState(event) {
     const { row, col } = event.detail;
-    console.log(row, col);
     const gridState = data.grid[row][col];
 
     if (visitedCount === 0 && gridState === GRID_STATE.EMPTY) {
-      console.log("pass1");
       visitedCount += 1;
       data.grid[row][col] = GRID_STATE.CURRENT;
       traceDestination(row, col);
       prevKnightPosition = { row: row, col: col };
     } else if (gridState === GRID_STATE.DESTINATION) {
-      console.log("pass2");
       visitedCount += 1;
       data.grid[row][col] = GRID_STATE.CURRENT;
       cleanDestination();
@@ -92,10 +97,30 @@
   }
 </script>
 
+<style>
+  .buttonList {
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .win {
+    color: var(--blue);
+  }
+</style>
+
 <p>Level {$currentLevel + 1}</p>
-<p>Visited Count {visitedCount}</p>
-<Board grid={data.grid} on:position={updateGridState} />
-{#if $currentLevel < getTotalLevel() - 1}
-  <button on:click={nextLevel}>Next Level</button>
+{#if debug}
+  <p>Visited Count {visitedCount}</p>
 {/if}
-<ButtonToMenu />
+<Board grid={data.grid} on:position={updateGridState} />
+{#if isFinished}
+  <p class="win">Land Conquered</p>
+{/if}
+<div class="buttonList">
+  <ButtonToMenu />
+  <button on:click={resetLevel}>Reset</button>
+  {#if $currentLevel < getTotalLevel() - 1}
+    <button on:click={nextLevel}>Next Level</button>
+  {/if}
+</div>
