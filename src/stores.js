@@ -11,6 +11,6 @@ const STATE = {
 
 const currentState = writable(STATE.BEGIN);
 const currentLevel = writable(0);
-const finishedLevel = writable(getTotalLevel());
+const finishedLevel = writable(new Array(getTotalLevel()));
 
 export { STATE, currentState, currentLevel, finishedLevel };
