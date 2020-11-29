@@ -16,7 +16,7 @@
   }
 
   h1 {
-    color: #ff4000;
+    color: var(--red);
     text-transform: uppercase;
     font-size: 4em;
     font-weight: 100;
