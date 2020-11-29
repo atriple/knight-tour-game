@@ -1,8 +1,11 @@
-# Knight Tour Game 
+# Knight Tour Game
 
-> "If I were not React, then I should wish to be Svelte." -- React The Great 
+> "If I were not React, then I should wish to be Svelte." -- React The Great
+
+Updated for practice. Quite a nice way to practice front end, ui, debugging, refactoring, logics and maths.
 
 ## Built With
+
 - Svelte
 
 ## Get started
@@ -22,7 +25,9 @@ npm run dev
 Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## Credits
-This project initially used for OMITS 2019 game, so props to QM-Team who make the game and level design.
+
+This project originally used for OMITS 2019 game, so props to QM-Team who make the game and level design.
