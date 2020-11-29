@@ -1,5 +1,4 @@
 <script>
-  import { afterUpdate } from "svelte";
   export let grid;
   import Square from "./Square.svelte";
 </script>

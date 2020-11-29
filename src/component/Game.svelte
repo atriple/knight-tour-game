@@ -4,12 +4,13 @@
   import { currentLevel, finishedLevel } from "../stores";
   import ButtonToMenu from "./button/ButtonToMenu.svelte";
 
-  export const debug = false;
+  export let debug = false;
 
   $: data = getLevelData($currentLevel);
   $: isFinished = visitedCount === data.goal;
   $: if (isFinished) {
     $finishedLevel[$currentLevel] = 1;
+    //localStorage.setItem("finishedLevel", JSON.stringify($finishedLevel));
   }
   /**
    * Allowed knight moves, consist of list of pair value [x, y]
