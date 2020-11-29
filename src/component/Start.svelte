@@ -4,6 +4,7 @@
   $currentLevel = Number(localStorage.getItem("currentLevel")) || 0;
 
   function newGame() {
+    localStorage.removeItem("currentLevel");
     $currentLevel = 0;
     $currentState = STATE.GAME;
   }
