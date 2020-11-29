@@ -11,6 +11,8 @@
   $: isDark = (row + col) % 2 === 0;
   $: blocked = value === GRID_STATE.BLOCKED;
   $: knight = value === GRID_STATE.CURRENT;
+  $: destination = value === GRID_STATE.DESTINATION;
+  $: visited = value === GRID_STATE.VISITED;
 
   const dispatch = createEventDispatcher();
 
@@ -51,10 +53,20 @@
     background-position: center;
     background-size: 54px;
   }
+
+  .destination {
+    border: 2px solid var(--blue);
+  }
+
+  .visited {
+    background-color: var(--red);
+  }
 </style>
 
 <div
   class={isDark ? 'dark' : 'light'}
   class:blocked
   class:knight
+  class:destination
+  class:visited
   on:click={sendPosition} />

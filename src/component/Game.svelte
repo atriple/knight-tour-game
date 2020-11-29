@@ -1,26 +1,100 @@
 <script>
   import Board from "./Board.svelte";
-  import { getLevelData, getTotalLevel } from "../data";
+  import { getLevelData, getTotalLevel, GRID_STATE } from "../data";
   import { STATE, currentState, currentLevel } from "../stores";
   import ButtonToMenu from "./button/ButtonToMenu.svelte";
 
-  export let debug = false;
+  export const debug = false;
 
   $: data = getLevelData($currentLevel);
+  $: console.log(data.grid);
+  /**
+   * Allowed knight moves, consist of list of pair value [x, y]
+   */
+  const modifierPair = [-2, -1, 1, 2].flatMap((n1) =>
+    [-2, -1, 1, 2]
+      .map((n2) => [n1, n2])
+      .filter((pair) => pair[0] != pair[1] && pair[0] != pair[1] * -1)
+  );
 
-  let score = 0;
+  let visitedCount = 0;
+  let prevKnightPosition;
+  let prevDestination = [];
+
+  /**
+   * Mark allowed knight moves position to GRID_STATE.DESTINATION
+   */
+  function traceDestination(row, col) {
+    modifierPair.forEach((pair) => {
+      const destination = {
+        row: row + pair[1],
+        col: col + pair[0],
+      };
+
+      const maxSize = data.grid.length; //It's guaranteed that row & column will have the same size on this game
+      const isNotInBound =
+        destination.row < 0 ||
+        destination.col < 0 ||
+        destination.row >= maxSize ||
+        destination.col >= maxSize;
+
+      if (
+        !isNotInBound &&
+        data.grid[destination.row][destination.col] === GRID_STATE.EMPTY
+      ) {
+        data.grid[destination.row][destination.col] = GRID_STATE.DESTINATION;
+        prevDestination = [
+          ...prevDestination,
+          [destination.col, destination.row],
+        ];
+      }
+    });
+  }
+
+  /**
+   * Set all previous destination to GRID_STATE.EMPTY
+   */
+  function cleanDestination() {
+    prevDestination.forEach((destination) => {
+      if (data.grid[destination[1]][destination[0]] === GRID_STATE.DESTINATION)
+        data.grid[destination[1]][destination[0]] = GRID_STATE.EMPTY;
+    });
+    prevDestination = [];
+  }
+
   function nextLevel() {
     $currentLevel += 1;
-    score = 0;
+    visitedCount = 0;
     localStorage.setItem("currentLevel", $currentLevel);
+  }
+
+  function updateGridState(event) {
+    const { row, col } = event.detail;
+    console.log(row, col);
+    const gridState = data.grid[row][col];
+
+    if (visitedCount === 0 && gridState === GRID_STATE.EMPTY) {
+      console.log("pass1");
+      visitedCount += 1;
+      data.grid[row][col] = GRID_STATE.CURRENT;
+      traceDestination(row, col);
+      prevKnightPosition = { row: row, col: col };
+    } else if (gridState === GRID_STATE.DESTINATION) {
+      console.log("pass2");
+      visitedCount += 1;
+      data.grid[row][col] = GRID_STATE.CURRENT;
+      cleanDestination();
+      traceDestination(row, col);
+      data.grid[prevKnightPosition.row][prevKnightPosition.col] =
+        GRID_STATE.VISITED;
+      prevKnightPosition = { row: row, col: col };
+    }
   }
 </script>
 
-<style>
-</style>
-
 <p>Level {$currentLevel + 1}</p>
-<Board grid={data.grid} />
+<p>Visited Count {visitedCount}</p>
+<Board grid={data.grid} on:position={updateGridState} />
 {#if $currentLevel < getTotalLevel() - 1}
   <button on:click={nextLevel}>Next Level</button>
 {/if}
